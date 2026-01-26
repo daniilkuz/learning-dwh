@@ -1,8 +1,8 @@
 import random
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from models import Item, User, Order, OrderItem, OrderStatus
-from config.database import create_tables
+from app.models import Item, User, Order, OrderItem, OrderStatus
+from app.config.database import create_tables
 import os
 from dotenv import load_dotenv
 
@@ -38,7 +38,7 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 
-def create_sample_data():
+def create_sample_data(session):
     """Populate the database with sample data"""
 
     print("Creating sample data...")
@@ -231,7 +231,7 @@ def test_relationships():
 
 if __name__ == "__main__":
     try:
-        create_sample_data()
+        create_sample_data(session)
         test_relationships()
         print("\nDatabase population completed successfully!")
     except Exception as e:
